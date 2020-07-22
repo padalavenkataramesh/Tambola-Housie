@@ -1,0 +1,318 @@
+<h2>Knuth Shuffle(aka the Fisher-Yates shuffle) Algorithm.</h2>
+<script>
+    var whereNinthy = 90
+    var lengthOfRow = 9
+
+    function callIndex(element) {
+
+        var e = Number(element)
+        var index = 0;
+        if (e === whereNinthy) {
+
+            index = Math.floor(e / 10)
+            if (e % 10 === 0) {
+                index = index - 1;
+            }
+            //console.log(index);
+
+        } else {
+            //console.log(e / 10);
+
+            index = Math.floor(e / 10);
+        }
+        //console.log(index);
+        return index;
+
+    }
+    function shuffle(arra1) {
+        var ctr = arra1.length, temp, index;
+
+        // While there are elements in the array
+        while (ctr > 0) {
+            // Pick a random index
+            index = Math.floor(Math.random() * ctr);
+            // Decrease ctr by 1
+            ctr--;
+            // And swap the last element with it
+            temp = arra1[ctr];
+            arra1[ctr] = arra1[index];
+            arra1[index] = temp;
+        }
+        return arra1;
+    }
+    function generateRange(min, max, step) {
+        let arr = [];
+        for (let i = min; i <= max; i += step) {
+            arr.push(i);
+        }
+
+        return arr;
+    }
+    function fisherYates(myArray, nb_picks) {
+        for (i = myArray.length - 1; i > 1; i--) {
+            var r = Math.floor(Math.random() * i);
+            var t = myArray[i];
+            myArray[i] = myArray[r];
+            myArray[r] = t;
+        }
+
+        //return myArray.slice(0,nb_picks);
+        return myArray
+    }
+
+    var step = 1
+    var range = 6
+
+    var firstAr = fisherYates(generateRange(1, 9, step), range) // min, max, step: 1
+    var secondAr = fisherYates(generateRange(10, 19, step), range)
+    var thirdAr = fisherYates(generateRange(20, 29, step), range)
+    var fourAr = fisherYates(generateRange(30, 39, step), range)
+    var fiveAr = fisherYates(generateRange(40, 49, step), range)
+    var sixAr = fisherYates(generateRange(50, 59, step), range)
+    var sevenAr = fisherYates(generateRange(60, 69, step), range)
+    var eightAr = fisherYates(generateRange(70, 79, step), range)
+    var nineAr = fisherYates(generateRange(80, 90, step), range)
+
+    // console.log(firstAr);
+    // console.log(secondAr);
+    // console.log(thirdAr);
+    // console.log(fourAr);
+    // console.log(fiveAr);
+    // console.log(sixAr);
+    // console.log(sevenAr);
+    // console.log(eightAr);
+    // console.log(nineAr);
+
+    let arr2 = []
+    let = [];
+    let arrC = [];
+
+    let rowsObj = {}
+    let ticketAr = []
+    // for (let i = 0; i <= 9; i++) {   // total 10 iterations required due to 11th value should be display.
+
+    //     let arr1 = [];
+    //     arr1.push(firstAr[i]);
+    //     arr1.push(secondAr[i]);
+    //     arr1.push(thirdAr[i]);
+    //     arr1.push(fourAr[i]);
+    //     arr1.push(fiveAr[i]);
+    //     arr1.push(sixAr[i]);
+    //     arr1.push(sevenAr[i]);
+    //     arr1.push(eightAr[i]);
+    //     arr1.push(nineAr[i]); 
+
+
+
+    //     if (i == 0)
+    //         arr2.push({ "first": arr1 })
+    //     if (i == 1)
+    //         arr2.push({ "second": arr1 })
+    //     if (i == 2)
+    //         arr2.push({ "third": arr1 })
+    //     if (i == 3)
+    //         arr2.push({ "four": arr1 })
+    //     if (i == 4)
+    //         arr2.push({ "five": arr1 })
+    //     if (i == 5)
+    //         arr2.push({ "six": arr1 })
+    //     if (i == 6)
+    //         arr2.push({ "seven": arr1 })
+    //     if (i == 7)
+    //         arr2.push({ "eight": arr1 })
+    //     if (i == 8)
+    //         arr2.push({ "nine": arr1 })
+    //     if (i == 9)
+    //         arr2.push({ "ten": arr1 })
+    //     //if(i == 10)        // commented due to 11th value not showing right now
+    //     // arr2.push({"eleven": arr1})
+    // }
+
+
+    // console.log(arr2);
+    // console.log(arr2.length);
+
+    for (let i = 0; i <= 10; i++) {
+
+        let arr1 = [];
+        arr1.push(firstAr[i]);
+        arr1.push(secondAr[i]);
+        arr1.push(thirdAr[i]);
+        arr1.push(fourAr[i]);
+        arr1.push(fiveAr[i]);
+        arr1.push(sixAr[i]);
+        arr1.push(sevenAr[i]);
+        arr1.push(eightAr[i]);
+        arr1.push(nineAr[i]);
+
+        shuffle(arr1)
+        arr2.push(arr1)
+    }
+    //console.log(arr2);
+    //console.log(arr2.length);
+
+
+    arrC = [].concat(...arr2);
+
+
+    //console.log(arrC);
+
+
+    var filteredData = arrC.filter(function (x) {
+        return x !== undefined;
+    });
+
+    //console.log(filteredData);
+
+
+    var size = 5;
+
+    var resultAr = new Array(Math.ceil(filteredData.length / size)).fill("")
+        .map(function () {
+
+            return this.splice(0, size)
+
+        }, filteredData.slice());
+    console.log("Result:")
+    console.log(resultAr)
+
+
+    let tbaleDAr = []
+
+    resultAr.forEach((eachRow, x) => {
+
+        let row = []
+        let rows = []
+        eachRow.forEach((element, i) => {
+
+            var index = callIndex(element);
+
+
+            row[index] = element === undefined ? "" : element;
+            //Object.keys(row);
+            //console.log(row)
+            // console.log(row.length)
+            if (row.length < lengthOfRow) {
+                for (var x = row.length; x < lengthOfRow; x++) {
+                    row[x] = "";
+                }
+            }
+            //console.log(i)
+            //console.log(row)
+            // if (i === 0)
+            // rows.push({ "first": row })
+            // if (i === 1)
+            // rows.push({ "second": row })
+            // if (i === 2)
+            // rows.push({ "third": row })
+
+        });
+        // if (x === 0)
+        // rows.push({ "first": row })
+        // if (x === 1)
+        // rows.push({ "second": row })
+        // if (x === 2)
+        // rows.push({ "third": row })
+        //console.log(rows)
+        tbaleDAr.push(row)
+        //tbaleDAr.push(rows)
+
+        //console.log(rows);
+        //
+        // tbaleDAr.push({
+        //     row: row
+        // });
+
+        //console.log(x)
+
+        // if (x == 0)
+        //     tbaleDAr.push({ "first": row })
+        // if (x == 1)
+        //     tbaleDAr.push({ "second": row })
+        // if (x == 2)
+        //     tbaleDAr.push({ "third": row })
+        // if (x == 3)
+        //     tbaleDAr.push({ "four": row })
+        // if (x == 4)
+        //     tbaleDAr.push({ "five": row })
+        // if (x == 5)
+        //     tbaleDAr.push({ "six": row })
+        // if (x == 6)
+        //     tbaleDAr.push({ "seven": row })
+        // if (x == 7)
+        //     tbaleDAr.push({ "eight": row })
+        // if (x == 8)
+        //     tbaleDAr.push({ "nine": row })
+        // if (x == 9)
+        //     tbaleDAr.push({ "ten": row })
+        // if (x == 10)
+        //     tbaleDAr.push({ "eleven": row })
+        // if (x == 11)
+        //     tbaleDAr.push({ "twelve": row })
+        // if (x == 12)
+        //     tbaleDAr.push({ "thirteen": row })
+        // if (x == 13)
+        //     tbaleDAr.push({ "fourteen": row })
+        // if (x == 14)
+        //     tbaleDAr.push({ "fifteen": row })
+        // if (x == 15)
+        //     tbaleDAr.push({ "sixteen": row })
+        // if (x == 16)
+        //     tbaleDAr.push({ "seventeen": row })
+        // if (x == 17)
+        //     tbaleDAr.push({ "eightteen": row })
+
+
+
+    });
+    console.log("---- ----")
+    console.log(tbaleDAr);
+
+    let tickets = []
+    tickets.push({ "firstRow": tbaleDAr[0], "secondRow": tbaleDAr[1], "thirdRow": tbaleDAr[2] })
+    tickets.push({ "firstRow": tbaleDAr[3], "secondRow": tbaleDAr[4], "thirdRow": tbaleDAr[5] })
+    tickets.push({ "firstRow": tbaleDAr[6], "secondRow": tbaleDAr[7], "thirdRow": tbaleDAr[8] })
+    tickets.push({ "firstRow": tbaleDAr[9], "secondRow": tbaleDAr[10], "thirdRow": tbaleDAr[11] })
+    tickets.push({ "firstRow": tbaleDAr[12], "secondRow": tbaleDAr[13], "thirdRow": tbaleDAr[14] })
+    tickets.push({ "firstRow": tbaleDAr[15], "secondRow": tbaleDAr[16], "thirdRow": tbaleDAr[17] })
+
+    console.log("---- ----")
+    console.log(tickets);
+
+    console.log("---- END ----")
+
+
+    document.write('<div style="margin:5px;padding:25px;border:1px solid gray;background-color:pink">');
+    tickets.forEach((ticket, x) => {
+        document.write('<div>')
+        document.write('<table class="tablestyle" border="1" cellpadding="10" cellspacing="1">')
+        document.write('<tr>')           
+            ticket.firstRow.forEach((element, i) => {
+            document.write('<td>')
+            document.write(element)
+            document.write('</td>')
+        })
+        document.write('</tr>')
+        document.write('<tr>')           
+            ticket.secondRow.forEach((element, i) => {
+            document.write('<td>')
+            document.write(element)
+            document.write('</td>')
+        })
+        document.write('</tr>')
+        document.write('<tr>')           
+            ticket.thirdRow.forEach((element, i) => {
+            document.write('<td>')
+            document.write(element)
+            document.write('</td>')
+        })
+        document.write('</tr>')
+       
+        document.write('</table>')
+        document.write('</div>')
+        document.write('</br>')
+    })
+
+    document.write('</div>')
+
+</script>
