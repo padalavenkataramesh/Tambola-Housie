@@ -1,0 +1,678 @@
+<h4>Tabmola - Housie game start.</h4>
+
+<button onclick="gameStartInterval()"> Game Start </button>
+<button onclick="gameEnd()"> Game End </button>
+<br>
+<span id="print-coin"></span>
+
+<br>
+<br>
+<table class="tablestyle" border="1" cellpadding="10" cellspacing="1">
+    <tbody>
+        <tr>
+            <td id="board-data-1" >1</td>
+            <td id="board-data-2">2</td>
+            <td id="board-data-3">3</td>
+            <td id="board-data-4">4</td>
+            <td id="board-data-5">5</td>
+            <td id="board-data-6">6</td>
+            <td id="board-data-7">7</td>
+            <td id="board-data-8">8</td>
+            <td id="board-data-9">9</td>
+            <td id="board-data-10">10</td>
+            <td id="board-data-11">11</td>
+            <td id="board-data-12">12</td>
+            <td id="board-data-13">13</td>
+            <td id="board-data-14">14</td>
+            <td id="board-data-15">15</td>
+            <td id="board-data-16">16</td>
+            <td id="board-data-17">17</td>
+            <td id="board-data-18">18</td>
+            <td id="board-data-19">19</td>
+            <td id="board-data-20">20</td>
+            <td id="board-data-21">21</td>
+            <td id="board-data-22">22</td>
+            <td id="board-data-23">23</td>
+            <td id="board-data-24">24</td>
+            <td id="board-data-25">25</td>
+            <td id="board-data-26">26</td>
+            <td id="board-data-27">27</td>
+            <td id="board-data-28">28</td>
+            <td id="board-data-29">29</td>
+            <td id="board-data-30">30</td>            
+        </tr>
+        <tr>
+            <td id="board-data-31">31</td>
+            <td id="board-data-32">32</td>
+            <td id="board-data-33">33</td>
+            <td id="board-data-34">34</td>
+            <td id="board-data-35">35</td>
+            <td id="board-data-36">36</td>
+            <td id="board-data-37">37</td>
+            <td id="board-data-38">38</td>
+            <td id="board-data-39">39</td>
+            <td id="board-data-40">40</td>
+            <td id="board-data-41" >41</td>
+            <td id="board-data-42">42</td>
+            <td id="board-data-43">43</td>
+            <td id="board-data-44">44</td>
+            <td id="board-data-45">45</td>
+            <td id="board-data-46">46</td>
+            <td id="board-data-47">47</td>
+            <td id="board-data-48">48</td>
+            <td id="board-data-49">49</td>
+            <td id="board-data-50">50</td>
+            <td id="board-data-51" >51</td>
+            <td id="board-data-52">52</td>
+            <td id="board-data-53">53</td>
+            <td id="board-data-54">54</td>
+            <td id="board-data-55">55</td>
+            <td id="board-data-56">56</td>
+            <td id="board-data-57">57</td>
+            <td id="board-data-58">58</td>
+            <td id="board-data-59">59</td>
+            <td id="board-data-60">60</td>                 
+        </tr>
+        <tr>
+            <td id="board-data-61">61</td>
+            <td id="board-data-62">62</td>
+            <td id="board-data-63">63</td>
+            <td id="board-data-64">64</td>
+            <td id="board-data-65">65</td>
+            <td id="board-data-66">66</td>
+            <td id="board-data-67">67</td>
+            <td id="board-data-68">68</td>
+            <td id="board-data-69">69</td>
+            <td id="board-data-70">70</td>
+            <td id="board-data-71" >71</td>
+            <td id="board-data-72">72</td>
+            <td id="board-data-73">73</td>
+            <td id="board-data-74">74</td>
+            <td id="board-data-75">75</td>
+            <td id="board-data-76">76</td>
+            <td id="board-data-77">77</td>
+            <td id="board-data-78">78</td>
+            <td id="board-data-79">79</td>
+            <td id="board-data-80">80</td>
+            <td id="board-data-81">81</td>
+            <td id="board-data-82">82</td>
+            <td id="board-data-83">83</td>
+            <td id="board-data-84">84</td>
+            <td id="board-data-85">85</td>
+            <td id="board-data-86">86</td>
+            <td id="board-data-87">87</td>
+            <td id="board-data-88">88</td>
+            <td id="board-data-89">89</td>
+            <td id="board-data-90">90</td>
+        </tr>
+        
+        
+    </tbody>
+</table>
+
+
+<script>
+    var whereNinthy = 90
+    var lengthOfRow = 9
+    var countofEarlyFiveFixed = 5
+    var countofEarlyFive = 5
+    var countofFull = 15
+    var lengthtofLine = 5
+    var maxNumberofLines = 3
+
+    function callIndex(element) {
+
+        var e = Number(element)
+        var index = 0;
+        if (e === whereNinthy) {
+
+            index = Math.floor(e / 10)
+            if (e % 10 === 0) {
+                index = index - 1;
+            }
+            //console.log(index);
+
+        } else {
+            //console.log(e / 10);
+
+            index = Math.floor(e / 10);
+        }
+        //console.log(index);
+        return index;
+
+    }
+    function shuffle(arra1) {
+        var ctr = arra1.length, temp, index;
+
+        // While there are elements in the array
+        while (ctr > 0) {
+            // Pick a random index
+            index = Math.floor(Math.random() * ctr);
+            // Decrease ctr by 1
+            ctr--;
+            // And swap the last element with it
+            temp = arra1[ctr];
+            arra1[ctr] = arra1[index];
+            arra1[index] = temp;
+        }
+        return arra1;
+    }
+    function generateRange(min, max, step) {
+        let arr = [];
+        for (let i = min; i <= max; i += step) {
+            arr.push(i);
+        }
+
+        return arr;
+    }
+    function fisherYates(myArray) {
+        for (i = myArray.length - 1; i > 1; i--) {
+            var r = Math.floor(Math.random() * i);
+            var t = myArray[i];
+            myArray[i] = myArray[r];
+            myArray[r] = t;
+        }
+
+        return myArray
+    }
+
+    function shuffleCoins() {
+        let coins = []
+        for (let i = 1; i <= 90; i++) {
+            coins.push(i)
+        }
+        return shuffle(coins)
+    }
+
+
+    var oneToNinty = fisherYates(generateRange(1, 90, 1))
+    console.log(oneToNinty);
+
+    var result = new Array(Math.ceil(oneToNinty.length / 5)).fill("")
+        .map(function () {
+
+            //console.log( this.length)
+
+            return this.splice(0, 5)
+
+        }, oneToNinty.slice());
+
+
+    console.log("Result:")
+    console.log(result)
+
+
+    //CODE START FOR Ticket generation start
+    var step = 1
+    //var range = 6
+
+    var firstAr = fisherYates(generateRange(1, 9, step)) // min, max, step: 1
+    var secondAr = fisherYates(generateRange(10, 19, step))
+    var thirdAr = fisherYates(generateRange(20, 29, step))
+    var fourAr = fisherYates(generateRange(30, 39, step))
+    var fiveAr = fisherYates(generateRange(40, 49, step))
+    var sixAr = fisherYates(generateRange(50, 59, step))
+    var sevenAr = fisherYates(generateRange(60, 69, step))
+    var eightAr = fisherYates(generateRange(70, 79, step))
+    var nineAr = fisherYates(generateRange(80, 90, step))
+
+    if (nineAr.length > 10)
+        var last = nineAr.splice(-1)[0]
+    //console.log(last);
+    if (last)
+        firstAr.push(last)
+
+    console.log("generate basic data by range 1-9 ... 80-90")
+    console.log(firstAr);
+    console.log(secondAr);
+    console.log(thirdAr);
+    console.log(fourAr);
+    console.log(fiveAr);
+    console.log(sixAr);
+    console.log(sevenAr);
+    console.log(eightAr);
+    console.log(nineAr);
+
+    let arr2 = []
+    let = [];
+    let arrC = [];
+
+
+
+    for (let i = 0; i <= 9; i++) {
+
+        let arr1 = [];
+        arr1.push(firstAr[i]);
+        arr1.push(secondAr[i]);
+        arr1.push(thirdAr[i]);
+        arr1.push(fourAr[i]);
+        arr1.push(fiveAr[i]);
+        arr1.push(sixAr[i]);
+        arr1.push(sevenAr[i]);
+        arr1.push(eightAr[i]);
+        arr1.push(nineAr[i]);
+
+        shuffle(arr1) // shuffle entire data for chaning position every time.
+        arr2.push(arr1)
+    }
+
+    console.log("Shuffle Data:")
+    console.log(arr2);
+    //console.log(arr2.length);
+
+
+    arrC = [].concat(...arr2);
+
+
+    //console.log(arrC);
+
+    // remobe undifined if it is arrC
+    var filteredData = arrC.filter(function (x) {
+        return x !== undefined;
+    });
+
+
+    console.log("filteredData:")
+    console.log(filteredData);
+
+
+    var size = 5;
+
+
+    var resultAr = new Array(Math.ceil(filteredData.length / size)).fill("")
+        .map(function () {
+
+            //console.log( this.length)
+
+            return this.splice(0, size)
+
+        }, filteredData.slice());
+
+
+    console.log("Result:")
+    console.log(resultAr)
+
+
+    let tbaleDAr = []
+
+    resultAr.forEach((eachRow, x) => {
+
+        let row = []
+        let rows = []
+        eachRow.forEach((element, i) => {
+
+            var index = callIndex(element);
+
+
+            row[index] = element === undefined ? "" : element;
+            //Object.keys(row);
+            //console.log(row)
+            // console.log(row.length)
+            if (row.length < lengthOfRow) {
+                for (var x = row.length; x < lengthOfRow; x++) {
+                    row[x] = "";
+                }
+            }
+
+        });
+
+        tbaleDAr.push(row)
+
+    });
+    console.log("---- ----")
+    console.log(tbaleDAr);
+
+    let tickets = []
+    var eachticketsArr = []
+    tickets.push({ "firstRow": tbaleDAr[0], "secondRow": tbaleDAr[1], "thirdRow": tbaleDAr[2] })
+    tickets.push({ "firstRow": tbaleDAr[3], "secondRow": tbaleDAr[4], "thirdRow": tbaleDAr[5] })
+    tickets.push({ "firstRow": tbaleDAr[6], "secondRow": tbaleDAr[7], "thirdRow": tbaleDAr[8] })
+    tickets.push({ "firstRow": tbaleDAr[9], "secondRow": tbaleDAr[10], "thirdRow": tbaleDAr[11] })
+    tickets.push({ "firstRow": tbaleDAr[12], "secondRow": tbaleDAr[13], "thirdRow": tbaleDAr[14] })
+    tickets.push({ "firstRow": tbaleDAr[15], "secondRow": tbaleDAr[16], "thirdRow": tbaleDAr[17] })
+
+    console.log("---- ----")
+    console.log(tickets);
+
+
+    eachticketsArr.push(filteredData.slice(0, 15), filteredData.slice(15, 30), filteredData.slice(30, 45), filteredData.slice(45, 60), filteredData.slice(60, 75), filteredData.slice(75, 90))
+
+    console.log(eachticketsArr);
+
+    console.log("---- END ----")
+
+
+
+    let inc = 0;
+
+    document.write('<div style="margin:5px;padding:25px;border:1px solid gray">');
+    tickets.forEach((ticket, x) => {
+        document.write('<div>')
+        document.write('<table class="tablestyle" id="table-data-' + x + '" border="1" cellpadding="10" cellspacing="1" >')
+
+        for (var r = 0; r < 3; r++) {
+            let tcketrow = []
+            if (r === 0)
+                tcketrow = ticket.firstRow
+            if (r === 1)
+                tcketrow = ticket.secondRow
+            if (r === 2)
+                tcketrow = ticket.thirdRow
+            //document.write(k )
+
+            document.write('<tr id="row-data-' + inc + '">')
+            for (var i = 0; i < lengthOfRow; i++) {
+                let item = tcketrow[i] === undefined ? "" : tcketrow[i];
+                document.write('<td id="data-' + item + '" class="data-' + (item ? 1 : 0) + '">')
+
+                document.write(item)
+                document.write('</td>')
+
+            }
+            document.write('</tr>')
+            inc++
+        }
+
+        document.write('</table>')
+        document.write('</div>')
+        document.write('</br>')
+        //document.write('<div style="clear:both"></div>')
+    })
+
+    document.write('</div>')
+
+
+
+    //CODE END FOR Ticket generation start
+
+    /********  Check line is completed. ****************************/
+
+    //gameStartInterval()    //  Start the game
+
+    var gameResult
+    function gameStartInterval() {
+        gameResult = setInterval(gameStart, 1000); // 1 second - 1000 
+    }
+
+
+    let coins = shuffleCoins()
+    let previousCoins = []
+    console.log("shuffle Coins:")
+    console.log(coins);
+    console.log();
+
+    let c = 0
+    let housie = []
+    let housieMaxCheck = 5;
+    let checkLine = []
+    //let ticketsArr = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11], [12, 13, 14], [15, 16, 17]]
+    let checkEarlyfive = []
+
+
+    function gameStart() {
+
+        var d = new Date();
+        var t = d.toLocaleTimeString();
+        //console.log("Time:" + t)
+
+        let coin = coins[c];
+
+
+
+
+        //console.log(coin)
+
+        //Apply class 
+        if (coin !== undefined) {
+
+            // store previous coins picked
+            previousCoins.push(coin)
+            console.log("previousCoins:");
+            console.log(previousCoins);
+
+            // apply class or select the number which is picked coin.
+            let id = document.getElementById("data-" + coin)
+            if (id) {
+                id.classList.add("apply-class")
+            }
+
+            let printCoin = document.getElementById("print-coin")
+            if (printCoin) {
+                printCoin.innerHTML = coin
+                printCoin.classList.add("print-icon")
+            }
+
+            let boardData = document.getElementById("board-data-"+coin)
+            if (boardData) {               
+                boardData.classList.add("apply-class")
+        
+            }
+
+
+
+
+
+
+
+        }
+
+
+        //CODE FOR check Early five & full       
+
+        eachticketsArr.forEach((ticket, x) => {
+
+            let findIndex = ticket.indexOf(coin);
+            if (findIndex !== -1) {
+
+                let obj = { "position": x, "item": coin }
+                checkEarlyfive.push(obj)
+            }
+
+        })
+
+        console.log("checkEarlyfive:");
+        console.log(checkEarlyfive);
+        console.log("------<br>");
+
+        // let setPositions = []
+        let checkEearlyFiveMaxPos = []
+        //let checkEearlyFiveMaxPosCount = []
+        //let checkFullMaxPosCount = []
+        // code for set position to comapre with result array 
+        checkEarlyfive.reduce(function (obj, v) {
+            // increment or set the property
+            // `(obj[v.position] || 0)` returns the property value if defined
+            // or 0 ( since `undefined` is a falsy value
+            let count = (obj[v.position] || 0) + 1;
+            obj[v.position] = count;
+            checkEearlyFiveMaxPos = []
+            //console.log(count);
+
+            if (count === countofEarlyFive)   // countofEarlyFive = 5, total 5 items should be matche to any one ticket for own early five.
+            {
+                let posCount = { "position": v.position, "count": count }
+                checkEearlyFiveMaxPos.push(posCount)
+                //checkEearlyFiveMaxPosCount.push(posCount)
+                countofEarlyFive = countofFull  // countofEarlyFive = 15, total 15 items should be matche to any one ticket for own full match.
+            }
+
+            //setPositions.push({ "position": v.position, "count": count })
+            // return the updated object
+            return obj;
+            // set the initial value as an object
+        }, {})
+
+
+
+        //console.log("early five result");
+        //console.log(checkEearlyFiveMaxPos);
+
+        //console.log(checkEearlyFiveMaxPosCount);
+        //console.log("full housie result");
+        //console.log(checkFullMaxPosCount);
+
+
+        if (checkEearlyFiveMaxPos.length) {
+
+            let id3 = document.getElementById("table-data-" + checkEearlyFiveMaxPos[0].position)
+            if (checkEearlyFiveMaxPos[0].count === countofEarlyFiveFixed) { // countofEarlyFiveFixed = 5, because countofEarlyFive value is used for check fullhousie value.
+                if (id3) {
+                    id3.classList.add("earlyfive")
+                }
+                console.log("Early five matched, Ticket Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
+                alert("Early five matched, Ticket Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
+            }
+
+            if (checkEearlyFiveMaxPos[0].count === countofFull) {  // countofFull = 15
+                if (id3) {
+                    id3.classList.add("fullhousie")
+                }
+                console.log("Full housie matched, Ticket Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
+                alert("Full housie matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
+                gameEnd("Game Over, " + "Full housie matched, Ticket Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
+            }
+        }
+        //CODE END FOR check Early five & full 
+
+        //Code for check Line 
+        resultAr.forEach((eachRow, x) => {
+            //console.log(x);
+
+            let findIndex = eachRow.indexOf(coin);
+            if (findIndex !== -1) {
+
+                let obj = { "position": x, "item": coin }
+                checkLine.push(obj)
+
+            }
+
+        })
+        //console.log("check Line");
+        //console.log(checkLine);console.log("------<br>");
+
+        let checkMaxPos = []
+        let checkMaxPosCount = []
+        // code for set position to comapre with result array 
+        var checkLinePosition = checkLine.reduce(function (obj, v) {
+            // increment or set the property
+            // `(obj[v.position] || 0)` returns the property value if defined
+            // or 0 ( since `undefined` is a falsy value
+            let count = (obj[v.position] || 0) + 1;
+            obj[v.position] = count;
+            checkMaxPos = []
+            if (count === lengthtofLine)   // lengthtofLine=5, it should be dynamic  it should be matched with result array count values.
+            {
+                let posCount = { "position": v.position, "count": count }
+                checkMaxPos.push(posCount)
+                checkMaxPosCount.push(posCount)
+                //checkMaxPos= [{ "position": v.position, "count": count }]
+
+
+            }
+            // return the updated object
+            return obj;
+            // set the initial value as an object
+        }, {})
+
+        //console.log(setPositions);
+        //console.log(checkLinePosition);
+        console.log("checkMaxPos");
+        console.log(checkMaxPos);
+        console.log("checkMaxPosCount");
+        console.log(checkMaxPosCount);
+        console.log(checkMaxPosCount.length + " expected count" + maxNumberofLines);
+
+
+
+        if (checkMaxPos.length && checkMaxPosCount.length <= maxNumberofLines) {
+            let id2 = document.getElementById("row-data-" + checkMaxPos[0].position)
+            if (id2) {
+                id2.classList.add("apply-class2")
+            }
+            console.log("Line Matched");
+            alert("Line Matched")
+            /// gameEnd("Line Matched")
+        }
+
+
+        if (checkMaxPosCount.length === maxNumberofLines) {  // maxNumberofLines == 3 number of lines selected  from 0 to 6  (all) tickets
+            //gameEnd("Game Over")
+            console.log(maxNumberofLines + " lines completed");
+            alert(maxNumberofLines + " lines completed");
+            //checkMaxPosCount = []
+
+        }
+        //Code  end for check Line 
+
+        // when all coins are picked.
+        if (c === 89) {
+            gameEnd("Game Over, All coins are picked..")
+        }
+        c++
+    }
+
+    function gameEnd(msg) {
+        alert(msg)
+        clearInterval(gameResult);
+    }
+/********  Check line is completed. ***{*************************/
+</script>
+<style>
+    /* table,
+    td,
+    th {
+        border: 2px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 60%;
+    }
+
+    th,
+    td {
+        padding: 15px;
+    } */
+
+    /* .data-0 {
+        background-color: white;
+    }
+
+    .data-1 {
+        background-color: lightgray;
+    } */
+
+    .apply-class {
+        background-color: lawngreen;
+    }
+
+    /* .row-data-2 {
+        border: 1px solid red;
+    } */
+    .apply-class2 {
+        border: 2px solid orangered;
+        background-color: goldenrod
+    }
+
+    .tablestyle {
+        border: 1px solid #ccc;
+    }
+
+    .earlyfive {
+        border: 2px solid blue !important;
+    }
+
+    .fullhousie {
+        border: 2px solid green !important;
+    }
+
+    .print-icon {
+
+        font-size: 100;
+        font-weight: bold;
+        background-color: yellow;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+</style>
