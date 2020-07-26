@@ -6,6 +6,7 @@
 <script>
     var whereNinthy = 90
     var lengthOfRow = 9
+    var countofEarlyFiveFixed = 5
     var countofEarlyFive = 5
     var countofFull = 15
     var lenghtofLine = 5
@@ -211,7 +212,7 @@
     document.write('<div style="margin:5px;padding:25px;border:1px solid gray;">');
     tickets.forEach((ticket, x) => {
         document.write('<div>')
-        document.write('<table class="tablestyle" border="1" cellpadding="10" cellspacing="1">')
+        document.write('<table class="tablestyle" id="table-data-' + x + '" border="1" cellpadding="10" cellspacing="1" >')
 
         for (var r = 0; r < 3; r++) {
             let tcketrow = []
@@ -250,7 +251,7 @@
     gameStartInterval()    //  can run manually 
     var gameResult
     function gameStartInterval() {
-        gameResult = setInterval(gameStart, 1000); // 1 second - 1000 
+        gameResult = setInterval(gameStart, 100); // 1 second - 1000 
     }
 
 
@@ -286,17 +287,7 @@
         }
 
 
-        // check housie
-        // if (filteredData.indexOf(coin) !== -1) {
-        //     if (housie.length === housieMaxCheck) {
-        //         console.log("Great Housie completed, Time "+ t + "Selected Coins: "+ housie )
-        //         gameEnd("Great Housie completed")
-        //     } else {
-        //         housie.push(coin)
-        //     }
-        // }
-
-        //CODE FOR check Early five & full        
+        //CODE FOR check Early five & full       
 
         eachticketsArr.forEach((ticket, x) => {
 
@@ -316,7 +307,7 @@
         // let setPositions = []
         let checkEearlyFiveMaxPos = []
         //let checkEearlyFiveMaxPosCount = []
-        let checkFullMaxPosCount = []
+        //let checkFullMaxPosCount = []
         // code for set position to comapre with result array 
         checkEarlyfive.reduce(function (obj, v) {
             // increment or set the property
@@ -332,15 +323,8 @@
                 let posCount = { "position": v.position, "count": count }
                 checkEearlyFiveMaxPos.push(posCount)
                 //checkEearlyFiveMaxPosCount.push(posCount)
-                countofEarlyFive = 15
+                countofEarlyFive = countofFull  // countofEarlyFive = 15, total 15 items should be matche to any one ticket for own full match.
             }
-
-            // if (count === countofFull)   // countofEarlyFive = 15, total 15 items should be matche to any one ticket for own full match.
-            // {
-            //     let posCount = { "position": v.position, "count": count }
-            //     //checkEearlyFiveMaxPos.push(posCount)
-            //     checkFullMaxPosCount.push(posCount)
-            // }
 
             //setPositions.push({ "position": v.position, "count": count })
             // return the updated object
@@ -349,52 +333,36 @@
         }, {})
 
 
-       
-        console.log("early five result");
-         console.log(checkEearlyFiveMaxPos);
+
+        //console.log("early five result");
+        //console.log(checkEearlyFiveMaxPos);
+
         //console.log(checkEearlyFiveMaxPosCount);
-        console.log("full housie result");
-        console.log(checkFullMaxPosCount);
-
-
+        //console.log("full housie result");
+        //console.log(checkFullMaxPosCount);
+       
 
         if (checkEearlyFiveMaxPos.length) {
-            // let id2 = document.getElementById("row-data-" + checkMaxPos[0].position)
-            // if (id2) {
-            //     id2.classList.add("apply-class2")
-            // }
-            if(checkEearlyFiveMaxPos[0].count===5) {
-            console.log("Early five matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
-            alert("Early five matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
+
+            let id3 = document.getElementById("table-data-" + checkEearlyFiveMaxPos[0].position)
+            if (checkEearlyFiveMaxPos[0].count === countofEarlyFiveFixed) { // countofEarlyFiveFixed = 5, because countofEarlyFive value is used for check fullhousie value.
+                if (id3) {
+                    id3.classList.add("earlyfive")
+                }
+                console.log("Early five matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
+                alert("Early five matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
             }
 
-            if(checkEearlyFiveMaxPos[0].count===15) {
-            console.log("Full housie matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
-            alert("Full housie matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
-            gameEnd("Game Over")
+            if (checkEearlyFiveMaxPos[0].count === countofFull) {  // countofFull = 15
+                if (id3) {
+                    id3.classList.add("fullhousie")
+                }
+                console.log("Full housie matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count);
+                // alert("Full housie matched, Position:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
+                gameEnd("Game Over, " + "Full housie matched, Ticket:" + checkEearlyFiveMaxPos[0].position + " count :" + checkEearlyFiveMaxPos[0].count)
             }
-            
-            
-            
         }
-        // if (checkEearlyFiveMaxPos.length >= maxNumberofLines) {  // maxNumberofLines == 3 number of lines selected  from 0 to 6  (all) tickets
-        //     //gameEnd("Game Over")
-        //     console.log("All lines completed");
-        // }
-
-        // if (checkMaxPos.length) {
-        //     let id2 = document.getElementById("row-data-" + checkMaxPos[0].position)
-        //     if (id2) {
-        //         id2.classList.add("apply-class2")
-        //     }
-        //     console.log("Line Matched");
-        //     /// gameEnd("Line Matched")
-        // }
-
-      
         //CODE END FOR check Early five & full 
-
-
 
         //Code for check Line 
         resultAr.forEach((eachRow, x) => {
@@ -411,7 +379,7 @@
         })
         //console.log("check Line");
         //console.log(checkLine);console.log("------<br>");
-        let setPositions = []
+
         let checkMaxPos = []
         let checkMaxPosCount = []
         // code for set position to comapre with result array 
@@ -422,15 +390,15 @@
             let count = (obj[v.position] || 0) + 1;
             obj[v.position] = count;
             checkMaxPos = []
-            if (count === lenghtofLine)   // lenghtofLine should be dynamic  it should be matched with result array count values.
+            if (count === lenghtofLine)   // lenghtofLine=5, it should be dynamic  it should be matched with result array count values.
             {
                 let posCount = { "position": v.position, "count": count }
                 checkMaxPos.push(posCount)
                 checkMaxPosCount.push(posCount)
                 //checkMaxPos= [{ "position": v.position, "count": count }]
-            }
 
-            setPositions.push({ "position": v.position, "count": count })
+
+            }
             // return the updated object
             return obj;
             // set the initial value as an object
@@ -438,42 +406,37 @@
 
         //console.log(setPositions);
         //console.log(checkLinePosition);
+        console.log("checkMaxPos");
         console.log(checkMaxPos);
+        console.log("checkMaxPosCount");
         console.log(checkMaxPosCount);
+        console.log(checkMaxPosCount.length + " expected count" + maxNumberofLines);
 
-        if (checkMaxPosCount.length >= maxNumberofLines) {  // maxNumberofLines == 3 number of lines selected  from 0 to 6  (all) tickets
-            //gameEnd("Game Over")
-            console.log("All lines completed");
-        }
 
-        if (checkMaxPos.length) {
+
+        if (checkMaxPos.length && checkMaxPosCount.length <= maxNumberofLines) {
             let id2 = document.getElementById("row-data-" + checkMaxPos[0].position)
             if (id2) {
                 id2.classList.add("apply-class2")
             }
             console.log("Line Matched");
+            //alert("Line Matched")
             /// gameEnd("Line Matched")
+        }
+
+
+        if (checkMaxPosCount.length === maxNumberofLines) {  // maxNumberofLines == 3 number of lines selected  from 0 to 6  (all) tickets
+            //gameEnd("Game Over")
+            console.log(maxNumberofLines + " lines completed");
+            // alert(maxNumberofLines +" lines completed");
+            //checkMaxPosCount = []
+
         }
         //Code  end for check Line 
 
-
-        // let getMaxPosition =  Math.max.apply(Math, setPositions.map(function(o) { return o.count; }))
-        // console.log(getMaxPosition);
-
-        //let getMaxPosition = checkLinePosition.reduce((max, p) => p.y > max ? p.y : max, checkLinePosition[0].y);
-        //console.log(getMaxPosition);
-
-        //if(checkLinePosition.indexOf(5) !== -1){
-        //  gameEnd("Line Matched")
-        //}
-
-
-
-
-
         // when all coins are picked.
         if (c === 89) {
-            gameEnd("Game Over")
+            gameEnd("Game Over, All coins are picked..")
         }
         c++
     }
@@ -520,5 +483,17 @@
     .apply-class2 {
         border: 2px solid orangered;
         background-color: goldenrod
+    }
+
+    .tablestyle {
+        border: 1px solid #ccc;
+    }
+
+    .earlyfive {
+        border: 2px solid blue;
+    }
+
+    .fullhousie {
+        border: 2px solid green;
     }
 </style>
